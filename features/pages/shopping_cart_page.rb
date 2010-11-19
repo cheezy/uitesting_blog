@@ -10,8 +10,9 @@ class ShoppingCartPage
     @browser = browser
   end
   
-  def checkout
+  def goto_checkout_page
     @browser.link(:text => 'Checkout').click
+    CheckoutPage.new(@browser)
   end
   
   def continue_shopping

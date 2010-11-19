@@ -14,7 +14,8 @@ class CatalogPage
     @browser.goto 'http://localhost:3000/store'
   end
 
-  def purchase_book(name="Pragmatic Project Automation")
+  def add_book_to_shopping_cart(name="Pragmatic Project Automation")
     @browser.button(:value => 'Add to Cart', :index => BOOK_MAPPING[name]).click
+    ShoppingCartPage.new(@browser)
   end
 end

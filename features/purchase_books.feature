@@ -38,4 +38,15 @@ Feature: Purchase Books
     And I should see "28.50" in the total for line "2"
     And I should see "58.45" in the cart total
 
-    
+  Scenario: Purchase two books
+    When I purchase "Pragmatic Unit Testing (C#)"
+    And I continue shopping
+    And I purchase "Pragmatic Version Control"
+    And I checkout
+    And I enter "Cheezy" in the name field
+    And I enter "123 Main Street" in the address field
+    And I enter "cheezy@example.com" in the email field
+    And I select "Credit card" from the pay type dropdown
+    And I place my order
+    Then I should see "Thank you for your order"
+

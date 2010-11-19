@@ -4,8 +4,7 @@ Given /^I am on the shopping page$/ do
 end
 
 When /^I purchase "([^\"]*)"$/ do |book|
-  @catalog.purchase_book(book)
-  @shopping_cart = ShoppingCartPage.new(@browser)
+  @shopping_cart = @catalog.add_book_to_shopping_cart(book)
 end
 
 When /^I continue shopping$/ do
@@ -30,4 +29,33 @@ end
 
 Then /^I should see "([^\"]*)" in the cart total$/ do |total|
   @shopping_cart.cart_total.should == "$#{total}"
+end
+
+
+When /^I checkout$/ do
+  @checkout = @shopping_cart.goto_checkout_page
+end
+
+When /^I enter "([^\"]*)" in the name field$/ do |name|
+  @checkout.name = name
+end
+
+When /^I enter "([^\"]*)" in the address field$/ do |address|
+  @checkout.address = address
+end
+
+When /^I enter "([^\"]*)" in the email field$/ do |email|
+  @checkout.email = email
+end
+
+When /^I select "([^\"]*)" from the pay type dropdown$/ do |pay_type|
+  @checkout.pay_type = pay_type
+end
+
+When /^I place my order$/ do
+  @checkout.place_order
+end
+
+Then /^I should see "([^\"]*)"$/ do |expected_text|
+  @browser.text.should include expected_text
 end
