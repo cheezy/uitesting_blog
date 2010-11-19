@@ -1,4 +1,5 @@
 class CatalogPage
+  include WatirHelper
   
   BOOK_MAPPING = {
   "Pragmatic Project Automation" => 1,
@@ -11,7 +12,7 @@ class CatalogPage
   end
 
   def visit
-    @browser.goto 'http://localhost:3000/store'
+    visit_page 'http://localhost:3000/store'
   end
 
   def add_book_to_shopping_cart(name="Pragmatic Project Automation")

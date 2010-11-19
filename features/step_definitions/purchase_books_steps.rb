@@ -57,5 +57,5 @@ When /^I place my order$/ do
 end
 
 Then /^I should see "([^\"]*)"$/ do |expected_text|
-  @browser.text.should include expected_text
+  @catalog.content.should include expected_text
 end
