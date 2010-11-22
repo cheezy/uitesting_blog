@@ -59,3 +59,17 @@ end
 Then /^I should see "([^\"]*)"$/ do |expected_text|
   @catalog.content.should include expected_text
 end
+
+And /^I checkout with$/ do |table|
+  @checkout_page = @shopping_cart.goto_checkout_page
+  @checkout_page.complete_order(table.hashes.first)
+end
+
+When /^I purchase a book$/ do
+  @shopping_cart = @catalog.add_book_to_shopping_cart('Pragmatic Version Control')
+end
+
+And /^I complete the order$/ do
+  @checkout_page = @shopping_cart.goto_checkout_page
+  @checkout_page.complete_order
+end

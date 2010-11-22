@@ -50,3 +50,22 @@ Feature: Purchase Books
     And I place my order
     Then I should see "Thank you for your order"
 
+  Scenario: Our first high level scenario
+    When I purchase "Pragmatic Unit Testing (C#)"
+    And I checkout with
+    | name   | address         | email              | pay_type    |
+    | Cheezy | 123 Main Street | cheezy@example.com | Credit card |
+    Then I should see "Thank you for your order"
+
+  Scenario: Using some default data
+    When I purchase a book
+    And I checkout with
+    | pay_type    |
+    | Credit card |
+    Then I should see "Thank you for your order"
+
+  Scenario: Using all default data
+    When I purchase a book
+    And I complete the order
+    Then I should see "Thank you for your order"
+
