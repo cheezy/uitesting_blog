@@ -1,3 +1,12 @@
+
+Transform /^line (\d+)$/ do |line_string|
+  line_string.to_i
+end
+
+Transform /^(\d+\.\d{2})$/ do |dollar_amount|
+  "$#{dollar_amount}"
+end
+
 Given /^I am on the shopping page$/ do
   @catalog = CatalogPage.new(@browser)
   @catalog.visit
@@ -11,24 +20,24 @@ When /^I continue shopping$/ do
   @shopping_cart.continue_shopping
 end
 
-Then /^I should see "([^\"]*)" in the quantity for line "([^\"]*)"$/ do |quantity, line|
-  @shopping_cart.quantity_for_line(line.to_i).should include quantity
+Then /^I should see "([^\"]*)" in the quantity for (line \d+)$/ do |quantity, line|
+  @shopping_cart.quantity_for_line(line).should include quantity
 end
 
-Then /^I should see "([^\"]*)" in the description for line "([^\"]*)"$/ do |desc, line|
-  @shopping_cart.description_for_line(line.to_i).should == desc
+Then /^I should see "([^\"]*)" in the description for (line \d+)$/ do |desc, line|
+  @shopping_cart.description_for_line(line).should == desc
 end
 
-Then /^I should see "([^\"]*)" in the each for line "([^\"]*)"$/ do |each, line|
-  @shopping_cart.each_for_line(line.to_i).should == "$#{each}"
+Then /^I should see "([^\"]*)" in the each for (line \d+)$/ do |each, line|
+  @shopping_cart.each_for_line(line).should == each
 end
 
-Then /^I should see "([^\"]*)" in the total for line "([^\"]*)"$/ do |total, line|
-  @shopping_cart.total_for_line(line.to_i).should == "$#{total}"
+Then /^I should see "([^\"]*)" in the total for (line \d+)$/ do |total, line|
+  @shopping_cart.total_for_line(line).should == total
 end
 
 Then /^I should see "([^\"]*)" in the cart total$/ do |total|
-  @shopping_cart.cart_total.should == "$#{total}"
+  @shopping_cart.cart_total.should == total
 end
 
 
