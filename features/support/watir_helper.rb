@@ -48,19 +48,23 @@ module WatirHelper
       end
     end
 
-    # adds three methods - one to select an item in a drop-down,
-    # another to fetch the currently selected item, and another
-    # to return the select_list.
+    # adds four methods - one to select an item in a drop-down,
+    # another to fetch the currently selected item, 
+    # another to see if a particular value is selected 
+    # and another to return the select_list.
     #
     # Example:  select_list(:state, {:id => "state"})
-    # will generate the 'state', 'state=' and 'state_select_list'
-    # methods
+    # will generate the 'state', 'state=', 'state_selected?'
+    # and 'state_select_list' methods
     def select_list(name, identifier)
       define_method(name) do
         @browser.select_list(identifier).value
       end
       define_method("#{name}=") do |value|
-        @browser.select_list(identifier).set(value)
+        @browser.select_list(identifier).select(value)
+      end
+      define_method("#{name}_selected?") do |value|
+        @browser.select_list(identifier).selected?(value)
       end
       define_method("#{name}_select_list") do
         @browser.select_list(identifier)
@@ -85,15 +89,19 @@ module WatirHelper
       end
     end
 
-    # adds three methods - one to select, another to clear and
-    # another to return a radio button
+    # adds four methods - one to select, another to clear, 
+    # another to determine if the button is set
+    # and another to return a radio button
     #
     # Example:  radio_button(:north, {:id => "north"})
-    # will generate 'select_north', 'clear_north', and
-    # 'north_radio_button' methods
+    # will generate 'select_north', 'clear_north', 
+    # 'select_set?' and'north_radio_button' methods
     def radio_button(name, identifier)
       define_method("select_#{name}") do
         @browser.radio(identifier).set
+      end
+      define_method("#{name}_set?") do
+        @browser.radio(identifier).set?
       end
       define_method("clear_#{name}") do
         @browser.radio(identifier).clear
@@ -194,6 +202,21 @@ module WatirHelper
       end
     end
 
+    # adds a method that returns the content of a <p>
+    # and another method that returns the div element
+    #
+    # Example: p(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_p' methods
+    def p(name, identifier)
+      define_method(name) do
+        @browser.p(identifier).text
+      end
+      define_method("#{name}_p") do
+        @browser.p(identifier)
+      end
+    end
+
+
     # adds a method that returns the content of a <dd>
     # and another method that returns the dd element
     def dd(name, identifier)
@@ -257,6 +280,93 @@ module WatirHelper
         @browser.image(identifier)
       end
     end
+
+    # adds a method that returns the content of an h1
+    # and another method that returns the h1 element
+    #
+    # Example: h1(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_h1' methods
+    def h1(name, identifier)
+      define_method(name) do
+        @browser.h1(identifier).text
+      end
+      define_method("#{name}_h1") do
+        @browser.h1(identifier)
+      end
+    end
+
+    # adds a method that returns the content of an h2
+    # and another method that returns the h1 element
+    #
+    # Example: h2(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_h2' methods
+    def h2(name, identifier)
+      define_method(name) do
+        @browser.h2(identifier).text
+      end
+      define_method("#{name}_h2") do
+        @browser.h2(identifier)
+      end
+    end
+
+    # adds a method that returns the content of an h3
+    # and another method that returns the h3 element
+    #
+    # Example: h3(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_h3' methods
+    def h3(name, identifier)
+      define_method(name) do
+        @browser.h3(identifier).text
+      end
+      define_method("#{name}_h3") do
+        @browser.h3(identifier)
+      end
+    end
+    
+    # adds a method that returns the content of an h4
+    # and another method that returns the h4 element
+    #
+    # Example: h4(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_h4' methods
+    
+    def h4(name, identifier)
+      define_method(name) do
+        @browser.h4(identifier).text
+      end
+      define_method("#{name}_h4") do
+        @browser.h4(identifier)
+      end
+    end
+    
+    # adds a method that returns the content of an h5
+    # and another method that returns the h5 element
+    #
+    # Example: h5(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_h5' methods
+    def h5(name, identifier)
+      define_method(name) do
+        @browser.h5(identifier).text
+      end
+      define_method("#{name}_h5") do
+        @browser.h5(identifier)
+      end
+    end
+    
+    # adds a method that returns the content of an h6
+    # and another method that returns the h6 element
+    #
+    # Example: h6(:header, {:id => "banner"})
+    # will generate a 'header' and 'header_h6' methods
+    def h6(name, identifier)
+      define_method(name) do
+        @browser.h6(identifier).text
+      end
+      define_method("#{name}_h6") do
+        @browser.h6(identifier)
+      end
+    end
+
+
   end
 
   def content
